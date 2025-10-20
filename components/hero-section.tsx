@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Github } from "lucide-react"
 import { useEffect, useState } from "react"
 import { ExampleCards } from "./example-cards"
+import { UsernameDialog } from "./username-dialog"
 
 export function HeroSection() {
   const [roastedCount, setRoastedCount] = useState(12847)
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,6 +42,7 @@ export function HeroSection() {
           {/* CTA Button */}
           <Button
             size="lg"
+            onClick={() => setDialogOpen(true)}
             className="mb-6 h-14 bg-white px-8 text-lg font-semibold text-black transition-all hover:scale-105 hover:bg-gray-200"
           >
             <Github className="mr-2 h-5 w-5" />
@@ -55,6 +58,8 @@ export function HeroSection() {
           <ExampleCards />
         </div>
       </div>
+
+      <UsernameDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </section>
   )
 }

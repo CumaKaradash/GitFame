@@ -13,8 +13,9 @@ import { CodingPatterns } from "@/components/coding-patterns"
 import { RepositoryHighlights } from "@/components/repository-highlights"
 import { CommitMessages } from "@/components/commit-messages"
 import { DeveloperPersonality } from "@/components/developer-personality"
-import { toast } from "sonner"
+import { useToast } from "@/components/ui/use-toast"
 import { getMockUserData } from "@/lib/mock-data"
+import { saveUser } from "@/lib/user-storage"
 
 interface RoastResultsProps {
   username: string
@@ -22,11 +23,20 @@ interface RoastResultsProps {
 
 export function RoastResults({ username }: RoastResultsProps) {
   const [userData, setUserData] = useState<any>(null)
+  const { toast } = useToast()
 
   useEffect(() => {
-    // Simulate API call
     setTimeout(() => {
-      setUserData(getMockUserData(username))
+      const data = getMockUserData(username)
+      setUserData(data)
+
+      saveUser({
+        username: data.username,
+        avatar: data.avatar,
+        score: data.overallScore,
+        repos: data.repos,
+        followers: data.followers,
+      })
     }, 500)
   }, [username])
 
@@ -50,10 +60,16 @@ export function RoastResults({ username }: RoastResultsProps) {
         break
       case "copy":
         navigator.clipboard.writeText(url)
-        toast.success("Link copied to clipboard!")
+        toast({
+          title: "Link copied!",
+          description: "Share link copied to clipboard",
+        })
         break
       case "download":
-        toast.success("Downloading roast card...")
+        toast({
+          title: "Downloading...",
+          description: "Your roast card is being prepared",
+        })
         break
     }
   }
