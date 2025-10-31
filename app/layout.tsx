@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "GitFame - Get Brutally Honest About Your GitHub",
   description:
     "AI-powered GitHub profile analyzer that generates shareable roast cards. Spotify Wrapped meets GitHub Roast Me.",
-  generator: "v0.app",
+  generator: "CumaKaradash",
   openGraph: {
     title: "GitFame - Get Brutally Honest About Your GitHub",
     description: "AI-powered roast that developers actually share",
